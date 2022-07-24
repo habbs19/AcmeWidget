@@ -6,7 +6,7 @@ const ParticipantCard = (props) => {
      
     return (
         <>
-            <Card title={props.title} subTitle={props.subtitle}>
+            <Card title={props.title} subTitle={props.subtitle} key={props.id}>
                 {props.content}
             </Card>
             
@@ -20,4 +20,5 @@ ParticipantCard.propTypes = {
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
 };

@@ -22,9 +22,12 @@ const Listing = () => {
     return (
         <>
             {registered &&
-                list?.map(p =>
-                    <div className='card-wrapper'>
-                        <ParticipantCard title={`${p.employee.firstName} ${p.employee.lastName}`} subtitle={p.activity.name} content={p.comments} />
+                list?.map((p,i) =>
+                    <div className='card-wrapper' key={i}>
+                        <ParticipantCard id={p.employee.emailAddress}
+                            title={`${p.employee.firstName} ${p.employee.lastName}`}
+                            subtitle={p.activity.name}
+                            content={p.comments} />
                     </div>
                 )
             }
@@ -32,7 +35,7 @@ const Listing = () => {
             {!registered &&
                  <div className='card-container overflow-hidden'>
                  <div className='flex align-items-center justify-content-center'>
-                     <div class='card p-2'>
+                     <div className='card p-2'>
                          <div>
                          Please sign up to see other participants.
                          </div>

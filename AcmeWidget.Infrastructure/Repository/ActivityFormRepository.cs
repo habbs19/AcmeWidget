@@ -24,6 +24,11 @@ namespace AcmeWidget.Infrastructure.Repository
         {
             try
             {
+                var emp = await _context.Employees.FirstOrDefaultAsync(e=> e.EmailAddress == model.Employee.EmailAddress);
+                if(emp != null)
+                {
+                    return new Either<ActivityForm, string>("You have already registered!");
+                }
                 var form = await _context.ActivityForm.AddAsync(model);
                 await _context.SaveChangesAsync();
                 return new Either<ActivityForm, string>(form.Entity);
@@ -43,7 +48,10 @@ namespace AcmeWidget.Infrastructure.Repository
         {
             try
             {
-                var result = _context.Set<ActivityForm>().Include(e => e.Employee).Include(a => a.Activity).ToList();
+                var result = _context.Set<ActivityForm>()
+                    .Include(e => e.Employee)
+                    .Include(a => a.Activity)
+                    .ToList();
                 return new Either<IEnumerable<ActivityForm>, string>(result);
             }
             catch (Exception ex)
@@ -52,9 +60,24 @@ namespace AcmeWidget.Infrastructure.Repository
             }
         }
 
-        public Task<Either<ActivityForm, string>> GetAsync(int id)
+        public async Task<Either<ActivityForm, string>> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var activity = await _context.Set<ActivityForm>()
+                    .Include(e => e.Employee)
+                    .Include(a => a.Activity)
+                    .FirstOrDefaultAsync(e=> e.FID == id);
+                if (activity != null)
+                {
+                    return new Either<ActivityForm, string>(activity);
+                }
+                return new Either<ActivityForm, string>("Registration Not Found!");
+            }
+            catch (Exception ex)
+            {
+                return new Either<ActivityForm, string>(ex.Message);
+            }
         }
 
         public Task<Either<int, string>> UpdateAsync(ActivityForm model)

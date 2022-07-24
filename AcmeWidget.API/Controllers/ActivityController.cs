@@ -26,10 +26,10 @@ namespace AcmeWidget.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Activity), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ActivityFormDTO), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Activity([FromBody] ActivityFormDTO model)
         {
-            _logger.LogInformation($"++ {ControllerContext.HttpContext.Request.Path} ++");
+            _logger.LogInformation($"++ New Sign Up ++");
 
             if (!ModelState.IsValid)
             {
@@ -44,21 +44,23 @@ namespace AcmeWidget.API.Controllers
             var activity = _mapper.Map<ActivityForm>(model);
 
             var result = await _repository.CreateAsync(activity);
-            return result.Match(
-                e => { return Ok(e); }, 
-                error => { return StatusCode(500, error); });
+            return result.Match<IActionResult>(
+                e => { return Ok(_mapper.Map<ActivityFormDTO>(e)); }, 
+                error => { return BadRequest(error); });
 
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(Activity), (int)HttpStatusCode.OK)]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(ActivityFormDTO), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Activity(int id)
         {
             _logger.LogInformation($"++ {ControllerContext.HttpContext.Request.Path} ++");
 
-            var result = await _repository.GetAsync(id);
-            return result.Match(
-             e => { return Ok(e); },
+            var model = await _repository.GetAsync(id);
+
+            return model.Match(
+             e => { return Ok(_mapper.Map<ActivityFormDTO>(e)); },
              error => { return StatusCode((int)HttpStatusCode.NotFound,error); });
         }
 
@@ -80,9 +82,9 @@ namespace AcmeWidget.API.Controllers
             var activity = _mapper.Map<ActivityForm>(model);
 
             var result = await _repository.UpdateAsync(activity);
-            return result.Match(
+            return result.Match<IActionResult>(
              e => { return Ok(e); },
-             error => { return StatusCode(500, error); });
+             error => { return BadRequest(error); });
         }
 
         [Route("list")]

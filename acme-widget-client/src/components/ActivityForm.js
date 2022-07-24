@@ -47,13 +47,13 @@ const ActivityForm = () => {
             },
             Comments: data.comments
         }
-
-        console.log('body', body)
         API.post('/activity', body, null).then((res) => {
             setRegistered(true)
             navigate('/home/listing')
         }).catch(err => {
-            alert('Sorry, we received an error: ' + err.message)
+
+            //Adding alert here. Better implementation is to add modal. 
+            alert(err.message + ': ' + err.response.data)
         })
 
 
@@ -67,8 +67,8 @@ const ActivityForm = () => {
         <>
             <form>
                 <h4>Please enter details to sign up:</h4>
-                <div class="formgrid grid">
-                    <div class="field col">
+                <div className="formgrid grid">
+                    <div className="field col">
                         <label htmlFor='firstname'>Firstname</label>
                         <Controller name='firstname' control={control} defaultValue={defaultValues.firstname}
                             rules={{ required: 'First name required.' || true, pattern: { value: /^[a-zA-Z]+$/, message: 'Must be letters only' } }}
@@ -82,7 +82,7 @@ const ActivityForm = () => {
                             )} />
                         {errorMsg('firstname')}
                     </div>
-                    <div class="field col">
+                    <div className="field col">
                         <label htmlFor="lastname">Lastname</label>
                         <Controller name='lastname' control={control} defaultValue={defaultValues.lastname}
                             rules={{ required: 'Last name required.' || true, pattern: { value: /^[a-zA-Z]+$/, message: 'Must be letters only' } }}
@@ -94,8 +94,8 @@ const ActivityForm = () => {
                         {errorMsg('lastname')}
                     </div>
                 </div>
-                <div class="formgrid grid">
-                    <div class="field col">
+                <div className="formgrid grid">
+                    <div className="field col">
                         <label htmlFor="email">Email</label>
                         <Controller name='email' control={control} defaultValue={defaultValues.email}
                             rules={{ required: 'Email required.' || true, pattern: { value: /^.+@.+$/, message: 'Invalid email type' } }}
@@ -106,7 +106,7 @@ const ActivityForm = () => {
                             )} />
                         {errorMsg('email')}
                     </div>
-                    <div class="field col">
+                    <div className="field col">
                         <label htmlFor='activity'>Activity</label>
                         <Controller name='activity' control={control} defaultValue={defaultValues.activity}
                             rules={{ required: 'Please select an activity.' || true }}
@@ -119,8 +119,8 @@ const ActivityForm = () => {
                         {errorMsg('activity')}
                     </div>
                 </div>
-                <div class="formgrid grid">
-                    <div class="field col">
+                <div className="formgrid grid">
+                    <div className="field col">
                         <label htmlFor='comments'>Comments</label>
                         <Controller name='comments' control={control} defaultValue={defaultValues.comments}
                             rules={{ maxLength: 'Reached maximum length.' || 1000 }}
