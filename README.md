@@ -6,5 +6,7 @@
 
 ## Configuration
 #### Connection String
+
 Project: AcmeWidget.API
+
 Update string in appsettings.json
