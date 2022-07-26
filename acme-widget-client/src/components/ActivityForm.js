@@ -9,9 +9,7 @@ import API from '../adapters/AcmeWidgetAPI'
 import { SignupContext } from '../pages/Home';
 
 
-
 const ActivityForm = () => {
-
     const { setRegistered } = useContext(SignupContext)
     const [activityOptions, setActivityOption] = useState([])
     const navigate = useNavigate()
@@ -24,7 +22,6 @@ const ActivityForm = () => {
         comments: ''
     }
     const { control, formState: { errors }, handleSubmit, reset } = useForm(defaultValues);
-
 
     useEffect(() => {
         API.get('/activity/type').then((res) => {
@@ -55,8 +52,6 @@ const ActivityForm = () => {
             //Adding alert here. Better implementation is to add modal. 
             alert(err.message + ': ' + err.response.data)
         })
-
-
     }
 
     const errorMsg = (name) => {
@@ -74,10 +69,7 @@ const ActivityForm = () => {
                             rules={{ required: 'First name required.' || true, pattern: { value: /^[a-zA-Z]+$/, message: 'Must be letters only' } }}
                             render={({ field }) => (
                                 <>
-                                    <div className=''></div>
                                     <InputText {...field} className='w-full' />
-
-
                                 </>
                             )} />
                         {errorMsg('firstname')}
@@ -127,23 +119,18 @@ const ActivityForm = () => {
                             render={({ field }) => (
                                 <>
                                     <InputTextarea rows={5} cols={30} {...field} autoResize={false} style={{ resize: 'none' }} className='w-full' />
-
                                 </>
                             )} />
-
                         {errorMsg('comments')}
                     </div>
                 </div>
-
             </form>
             <div className="flex flex-row-reverse flex-wrap card-container">
                 <div className='m-1'> <Button icon="pi pi-check" iconPos="right" onClick={handleSubmit(submit)} label='Submit' /></div>
                 <div className='m-1'> <Button className='p-button-secondary' onClick={() => reset(defaultValues)} label='Clear' /></div>
             </div>
-
         </>
     )
 }
-
 
 export default ActivityForm;

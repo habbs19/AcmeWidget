@@ -31,8 +31,6 @@ const Home = () => {
                     </Routes>
                 </div>
             </SignupContext.Provider>
-
-
         </>
     )
 }

@@ -5,6 +5,7 @@ import { SignupContext } from './Home';
 import ParticipantCard from '../components/ParticipantCard';
 
 import '../styles/Pages.css'
+
 const Listing = () => {
     
     const [list, setList] = useState()
@@ -22,7 +23,7 @@ const Listing = () => {
     return (
         <>
             {registered &&
-                list?.map((p,i) =>
+                list?.map((p, i) =>
                     <div className='card-wrapper' key={i}>
                         <ParticipantCard id={p.employee.emailAddress}
                             title={`${p.employee.firstName} ${p.employee.lastName}`}
@@ -33,15 +34,15 @@ const Listing = () => {
             }
 
             {!registered &&
-                 <div className='card-container overflow-hidden'>
-                 <div className='flex align-items-center justify-content-center'>
-                     <div className='card p-2'>
-                         <div>
-                         Please sign up to see other participants.
-                         </div>
-                     </div>
-                 </div>
-             </div>
+                <div className='card-container overflow-hidden'>
+                    <div className='flex align-items-center justify-content-center'>
+                        <div className='card p-2'>
+                            <div>
+                                Please sign up to see other participants.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
 
         </>

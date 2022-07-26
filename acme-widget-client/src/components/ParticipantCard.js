@@ -9,7 +9,6 @@ const ParticipantCard = (props) => {
             <Card title={props.title} subTitle={props.subtitle} key={props.id}>
                 {props.content}
             </Card>
-            
         </>
     )
 }
