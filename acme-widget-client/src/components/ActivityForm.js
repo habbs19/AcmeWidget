@@ -28,7 +28,7 @@ const ActivityForm = () => {
 
     useEffect(() => {
         API.get('/activity/type').then((res) => {
-            const options = Object.keys(res.data).map(key => ({ value: key, label: res.data[key] }))
+            const options = Object.keys(res.data).map(key => ({ value: key, label: res.data[key]}))
             setActivityOption(options)
         })
 
@@ -112,7 +112,7 @@ const ActivityForm = () => {
                             rules={{ required: 'Please select an activity.' || true }}
                             render={({ field }) => (
                                 <>
-                                    <Dropdown {...field} options={activityOptions} placeholder="Select an Activity" className='w-full' />
+                                    <Dropdown {...field} options={activityOptions} placeholder="Select an Activity" className='w-full' id='aOptions' />
                                 </>
                             )} />
 
@@ -138,7 +138,7 @@ const ActivityForm = () => {
             </form>
             <div className="flex flex-row-reverse flex-wrap card-container">
                 <div className='m-1'> <Button icon="pi pi-check" iconPos="right" onClick={handleSubmit(submit)} label='Submit' /></div>
-                <div className='m-1'>  <Button className='p-button-secondary' onClick={() => reset(defaultValues)} label='Clear' /></div>
+                <div className='m-1'> <Button className='p-button-secondary' onClick={() => reset(defaultValues)} label='Clear' /></div>
             </div>
 
         </>
