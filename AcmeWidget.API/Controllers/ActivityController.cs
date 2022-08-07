@@ -107,8 +107,30 @@ namespace AcmeWidget.API.Controllers
         {
             _logger.LogInformation($"++ {ControllerContext.HttpContext.Request.Path} ++");
             
-            var result = Enum.GetValues<Activity.ActivityType>().ToDictionary(e=> (int)e,e=> Enum.GetName(e));
-            return result;
+            return Enum.GetValues<Activity.ActivityType>().ToDictionary(e=> (int)e,e=> Enum.GetName(e));
+        }
+
+        [Route("typeList")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Activity.ActivityTypeModel>), (int)HttpStatusCode.OK)]
+        public IEnumerable<Activity.ActivityTypeModel> GetActivityTypeList()
+        {
+            _logger.LogInformation($"++ {ControllerContext.HttpContext.Request.Path} ++");
+
+            var e = Enum.GetValues<Activity.ActivityType>();
+            return _mapper.Map<IEnumerable<Activity.ActivityTypeModel>>(e);
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> DeleteParticipant(int formId)
+        {
+            _logger.LogInformation($"++ {ControllerContext.HttpContext.Request.Path} ++");
+
+            var result = await _repository.DeleteAsync(formId);
+            return result.Match(
+             e => { return Ok(e); },
+             error => { return StatusCode(500, error);});
         }
 
     }
