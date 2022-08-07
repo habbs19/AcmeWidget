@@ -32,17 +32,18 @@ namespace AcmeWidget.Infrastructure.EFCore
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-            //modelBuilder.ApplyConfiguration(new ApplicationSettingConfiguration());
             modelBuilder.Entity<Activity>(entity =>
             {
                 entity.ToTable(nameof(Activity));
                 entity.Property(e => e.ActivityId).HasColumnName(nameof(Activity.ActivityId));
+                entity.HasOne(e => e.Form).WithOne(a=>a.Activity).HasForeignKey("Activity");
             });
             modelBuilder.Entity<Employee>(entity =>
             {
                 entity.ToTable(nameof(Employee));
                 entity.Property(e => e.EmployeeId).HasColumnName(nameof(Employee.EmployeeId));
                 entity.Property(e => e.FirstName).HasColumnName(nameof(Employee.FirstName));
+                entity.HasOne(e => e.Form).WithOne(a => a.Employee).HasForeignKey("Employee");
             });
             modelBuilder.Entity<ActivityForm>(entity =>
             {
@@ -51,6 +52,8 @@ namespace AcmeWidget.Infrastructure.EFCore
                 entity.Property(e => e.FID).HasColumnName(nameof(ApplicationCore.Models.ActivityForm.FID)).UseIdentityColumn();
                 entity.Property(e => e.Comments).HasColumnName(nameof(ApplicationCore.Models.ActivityForm.Comments));
                 entity.Property(e => e.CreatedDate).HasColumnName(nameof(ApplicationCore.Models.ActivityForm.CreatedDate)).HasDefaultValueSql("GETDATE()");
+                entity.HasOne(e => e.Activity).WithOne(a=>a.Form).OnDelete(DeleteBehavior.ClientCascade);
+                entity.HasOne(e => e.Employee).WithOne(a=>a.Form).OnDelete(DeleteBehavior.ClientCascade);
             });
             OnModelCreatingPartial(modelBuilder);
             SeedDataInsert(modelBuilder);
