@@ -1,0 +1,9 @@
+    <div class="card text-center">
+        <h5 class="card-header">{{activityForm?.activity?.name}}</h5>
+        <div class="card-body">
+            <h4 class="card-title">{{activityForm?.employee?.firstName}} {{activityForm?.employee?.lastName}}</h4>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">{{activityForm?.activity?.name}}</h6> -->
+            <p class="card-text">{{activityForm?.comments}}</p>
+            <a [routerLink]="['/home/participants']"   (click)="delete()" *ngIf="activityForm?.formId===formId">Delete</a>
+        </div>
+    </div>

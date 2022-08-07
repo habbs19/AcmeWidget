@@ -1,0 +1,20 @@
+<div *ngIf='isRegistered===true'>
+    <div class="container">
+        <div class="d-flex">
+            <div class="flex-fill">
+                <div *ngFor="let p of participants" class="mb-2" style="min-width: max-content;">
+                    <app-participant-card [formId]="formId" [activityForm]="p"></app-participant-card>
+                </div>
+            </div>
+        </div> 
+
+    </div>
+</div>
+
+<div *ngIf='isRegistered!==true'>
+    <div class="d-flex flex-wrap text-center">
+        <div class="flex-fill">
+            Please signup to see other participants
+        </div>
+    </div> 
+</div>

@@ -1,0 +1,87 @@
+<div class="container" style="max-width: 500px;">
+    <div class="card p-2">
+        <h5>Please enter details to signup:</h5>
+        <form [formGroup]="activityForm" class="needs-validation" (ngSubmit)="onSubmit()">
+            <div class="d-flex flex-row flex-wrap justify-content-center ">
+                <div class="flex-fill m-2">
+                    <label for="first" class="form-label">Firstname</label>
+                    <input id="first" class="form-control" type="text" formControlName="firstName" required>
+                    <div *ngIf="activityForm.controls['firstName'].invalid && (activityForm.controls['firstName'].dirty || activityForm.controls['firstName'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="activityForm.controls['firstName'].errors?.['required']">
+                            Firstname is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-fill m-2">
+                    <label for="last" class="form-label">Lastname</label>
+                    <input id="last" class="form-control" type="text" formControlName="lastName" required>
+                    <div *ngIf="activityForm.controls['lastName'].invalid && (activityForm.controls['lastName'].dirty || activityForm.controls['lastName'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="activityForm.controls['lastName'].errors?.['required']">
+                            Lastname is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row flex-wrap justify-content-center">
+                <div class="flex-fill m-2">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" class="form-control" type="text" formControlName="email" required>
+                    <div *ngIf="activityForm.controls['email'].invalid && (activityForm.controls['email'].dirty || activityForm.controls['email'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="activityForm.controls['email'].errors?.['required']">
+                            Email is required.
+                        </div>
+                        <div *ngIf="activityForm.controls['email'].errors?.['pattern']">
+                            Not a valid email.
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="flex-fill m-2">
+                    <label for="activity" class="form-label">Activity</label>
+                    <select class="form-control" formControlName="activity" required>
+                        <option [value]="-1" disabled hidden>
+                            <div>select an activity...</div>
+                        </option>
+    
+                        <option [value]="-1" disabled *ngIf="activities.length==0">
+                            <div>No Results Found</div>
+                        </option>
+                        <option *ngFor="let activity of activities" [value]="activity.type">{{activity.name}}</option>
+                    </select>
+                    <div *ngIf="activityForm.controls.activity.value !== null && activityForm.controls.activity.value < 0 && (activityForm.controls['activity'].dirty || activityForm.controls['activity'].touched)"
+                        class="alert alert-danger">
+                        <div
+                            *ngIf="activityForm.controls.activity.value !== null && activityForm.controls.activity.value < 0">
+                            Please select an activity.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-center">
+                <div class="flex-fill m-2">
+                    <label for="comments" class="form-label">Comments</label>
+                    <textarea id="comments" class="form-control" formControlName="comments"></textarea>
+                    <div *ngIf="activityForm.controls['comments'].invalid && (activityForm.controls['comments'].dirty || activityForm.controls['comments'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="activityForm.controls['comments'].errors?.['maxlength']">
+                            Reached maximum length of 200 characters.
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+            <div class="d-flex flex-row justify-content-end">
+                <div class="m-2">
+                    <button type="button" class="btn btn-secondary" (click)="onClickClear()">Clear</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+    
+            </div>
+        </form>
+    </div>
+   
+
+</div>

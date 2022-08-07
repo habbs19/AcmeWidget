@@ -1,0 +1,12 @@
+<div class="">
+    <div  *ngIf="!isRegistered">
+        <app-activityform></app-activityform>
+    </div>
+    <div class="" *ngIf="isRegistered">
+        <div class="d-flex flex-wrap text-center">
+            <div class="flex-fill">
+                You have already registered. Click <a href="/home/signup" class="link-info" (click)="signup()">here</a> to signup a new participant
+            </div>
+        </div> 
+    </div>
+</div>
