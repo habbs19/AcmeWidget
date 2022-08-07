@@ -39,9 +39,19 @@ namespace AcmeWidget.Infrastructure.Repository
             }
         }
 
-        public Task<Either<int, string>> DeleteAsync(int id)
+        public async Task<Either<int, string>> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var form = await _context.ActivityForm.Where(f => f.FID == id).Include(e => e.Employee).Include(a => a.Activity).SingleAsync();
+                _context.ActivityForm.Remove(form);
+                var result = await _context.SaveChangesAsync();
+                return new Either<int, string>(result);
+            }
+            catch (Exception ex)
+            {
+                return new Either<int, string>(ex.Message);
+            }
         }
 
         public Either<IEnumerable<ActivityForm>, string> GetAll()
