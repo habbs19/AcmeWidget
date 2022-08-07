@@ -9,7 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<IRepository<Activity>, ActivityRepository>();
 builder.Services.AddTransient<IRepository<ActivityForm>, ActivityFormRepository>();
-builder.Services.AddAutoMapper(options=> options.AddProfiles(new List<Profile> { new ActivityProfile(),new EmployeeProfile(),new ActivityFormProfile() }));
+builder.Services.AddAutoMapper(options=> options.AddProfiles(new List<Profile> { 
+    new ActivityProfile(),
+    new EmployeeProfile(),
+    new ActivityFormProfile(),
+    new ActivityTypeProfile()
+}));
 
 builder.Services.AddControllers();
 
@@ -25,7 +30,8 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins("http://localhost:3000",
-                                "https://localhost:3000")
+                                "https://localhost:3000",
+                                "http://localhost:4200")
                                 .AllowAnyMethod()
                                 .AllowAnyHeader();
         });
