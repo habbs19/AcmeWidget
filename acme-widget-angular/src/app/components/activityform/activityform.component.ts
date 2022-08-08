@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder,Validators  } from '@angular/forms';
+import { FormBuilder,FormGroup,Validators  } from '@angular/forms';
 import { Participant, ParticipantAdapter } from 'src/app/core/models/participant.model';
 import { ActivityService } from 'src/app/core/services/activity.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -14,8 +14,8 @@ import { ActivityForm } from 'src/app/core/models/activityForm.model';
   
 export class ActivityformComponent implements OnInit {
 
-  protected activities: Activity[] = []
-  
+  activities: Activity[] = []
+
   activityForm = this.fb.group({
     firstName: ['',Validators.required],
     lastName: ['',Validators.required],
@@ -30,7 +30,7 @@ export class ActivityformComponent implements OnInit {
     private adapter: ActivityAdapter,
     private partAdapter: ParticipantAdapter,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getActivities().subscribe((res: Activity[]) => {

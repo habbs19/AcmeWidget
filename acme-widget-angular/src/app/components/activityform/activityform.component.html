@@ -51,10 +51,10 @@
                         </option>
                         <option *ngFor="let activity of activities" [value]="activity.type">{{activity.name}}</option>
                     </select>
-                    <div *ngIf="activityForm.controls.activity.value !== null && activityForm.controls.activity.value < 0 && (activityForm.controls['activity'].dirty || activityForm.controls['activity'].touched)"
+                    <div *ngIf="activityForm.controls['activity'].value !== null && activityForm.controls['activity'].value < 0 && (activityForm.controls['activity'].dirty || activityForm.controls['activity'].touched)"
                         class="alert alert-danger">
                         <div
-                            *ngIf="activityForm.controls.activity.value !== null && activityForm.controls.activity.value < 0">
+                            *ngIf="activityForm.controls['activity'].value !== null && activityForm.controls['activity'].value < 0">
                             Please select an activity.
                         </div>
                     </div>

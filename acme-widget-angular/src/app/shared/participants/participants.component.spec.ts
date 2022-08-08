@@ -75,6 +75,7 @@ describe('ParticipantsComponent', () => {
 
     activityServiceSpy.getAll.and.returnValue(of(form))
     component.ngOnInit()
+
     expect(component.getParticipants().length).toBe(2)
 
   });

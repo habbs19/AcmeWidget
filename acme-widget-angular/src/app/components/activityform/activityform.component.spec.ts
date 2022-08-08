@@ -5,7 +5,7 @@ import { ActivityService } from 'src/app/core/services/activity.service';
 import { ActivityformComponent } from './activityform.component';
 import { Activity, ActivityAdapter } from 'src/app/core/models/activity.model';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { ActivityForm } from 'src/app/core/models/activityForm.model';
 
 
@@ -48,20 +48,23 @@ describe('ActivityformComponent', () => {
     actServiceSpy.getActivities.and.returnValue(of(list));
     component = fixture.componentInstance;
 
-    component.activityForm = formBuilderSpy.group({
-      firstName: ['',Validators.required],
-      lastName: ['',Validators.required],
-      email: ['',[Validators.required,Validators.pattern(/^.+@.+$/)]],
-      activity: [-1,Validators.required],
-      comments: ['',Validators.maxLength(200)]
+    const form = new FormGroup({
+      firstName: new FormControl('',Validators.required),
+      lastName: new FormControl('',Validators.required),
+      email: new FormControl('',[Validators.required,Validators.pattern(/^.+@.+$/)]),
+      activity: new FormControl(-1,Validators.required),
+      comments: new FormControl('',Validators.maxLength(200))
     })
-
-   //console.log(component.activityForm.controls.activity)
+    component.activityForm = form
     fixture.detectChanges();
 
   });
 
-  it('should create', () => {
+  it('should create', () => { 
+    expect(component).toBeTruthy();
+  });
+
+  it('get activities', () => {
 
     let activityList: Activity[] = [
       { name: 'Activity1', type: 1 },
@@ -69,8 +72,13 @@ describe('ActivityformComponent', () => {
       { name: 'Activity3', type: 3 },
     ]
 
-   // actServiceSpy.getActivities.and.returnValue(of(activityList))    
-    expect(component).toBeTruthy();
+    actServiceSpy.getActivities.and.returnValue(of(activityList))   
+    component.ngOnInit
+    let count : number = 0
+    component.getActivities().subscribe(res => {  
+      count=  res.length
+    })
+    expect(count).toBe(3);
   });
 
 });
