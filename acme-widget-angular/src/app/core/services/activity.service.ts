@@ -9,7 +9,7 @@ import { ActivityForm, ActivityFormAdapter } from '../models/activityForm.model'
 @Injectable({
   providedIn: 'root'
 })
-export class AcitivityService {
+export class ActivityService {
 
   private readonly serviceUrl = 'activity'
   private _isRegistered: boolean = false

@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AcitivityService } from 'src/app/core/services/acitivity.service';
+import { ActivityService } from 'src/app/core/services/activity.service';
 
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  templateUrl: './signup.component.html'
 })
 export class SignupComponent implements OnInit {
 
   isRegistered: boolean = false;
 
   constructor(
-    private activityService: AcitivityService,
+    private activityService: ActivityService,
   ) { }
 
   ngOnInit(): void {

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl,FormGroup,NgModel } from '@angular/forms';
 import { FormBuilder,Validators  } from '@angular/forms';
 import { Participant, ParticipantAdapter } from 'src/app/core/models/participant.model';
-import { AcitivityService } from 'src/app/core/services/acitivity.service';
+import { ActivityService } from 'src/app/core/services/activity.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { catchError, Observable, of, tap } from 'rxjs';
 import { Activity, ActivityAdapter } from 'src/app/core/models/activity.model';
 import { ActivityForm } from 'src/app/core/models/activityForm.model';
 
@@ -26,11 +24,13 @@ export class ActivityformComponent implements OnInit {
     comments: ['',Validators.maxLength(200)]
   })
 
-  constructor(private fb: FormBuilder,
-    private activityService: AcitivityService,
+  constructor(
+    private fb: FormBuilder,
+    private activityService: ActivityService,
     private adapter: ActivityAdapter,
     private partAdapter: ParticipantAdapter,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getActivities().subscribe((res: Activity[]) => {

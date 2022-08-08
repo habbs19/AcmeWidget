@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, pipe } from 'rxjs';
 import { ActivityForm, ActivityFormAdapter } from 'src/app/core/models/activityForm.model';
-import { AcitivityService } from 'src/app/core/services/acitivity.service';
+import { ActivityService } from 'src/app/core/services/activity.service';
 
 @Component({
   selector: 'app-participants',
-  templateUrl: './participants.component.html',
-  styleUrls: ['./participants.component.css']
+  templateUrl: './participants.component.html'
 })
 export class ParticipantsComponent implements OnInit {
 
@@ -16,7 +15,7 @@ export class ParticipantsComponent implements OnInit {
   protected formId: number | null | undefined
 
   constructor(
-    private activityService: AcitivityService,
+    private activityService: ActivityService,
     private formAdapter: ActivityFormAdapter,
   ) {}
 
@@ -29,9 +28,10 @@ export class ParticipantsComponent implements OnInit {
       })
       this.formId = this.activityService.getFormId()
     }
+    
   }
 
-  
-
-
+  getParticipants() {
+    return this.participants
+  }
 }
