@@ -27,6 +27,7 @@ namespace AcmeWidget.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(ActivityFormDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Activity([FromBody] ActivityFormDTO model)
         {
             _logger.LogInformation($"++ New Sign Up ++");
@@ -66,6 +67,7 @@ namespace AcmeWidget.API.Controllers
 
         [HttpPut]
         [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> ActivityUpdate(ActivityFormDTO model)
         {
             _logger.LogInformation($"++ {ControllerContext.HttpContext.Request.Path} ++");
@@ -113,12 +115,12 @@ namespace AcmeWidget.API.Controllers
         [Route("typeList")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Activity.ActivityTypeModel>), (int)HttpStatusCode.OK)]
-        public IEnumerable<Activity.ActivityTypeModel> GetActivityTypeList()
+        public async Task<IActionResult> GetActivityTypeList()
         {
             _logger.LogInformation($"++ {ControllerContext.HttpContext.Request.Path} ++");
 
             var e = Enum.GetValues<Activity.ActivityType>();
-            return _mapper.Map<IEnumerable<Activity.ActivityTypeModel>>(e);
+            return Ok(_mapper.Map<IEnumerable<Activity.ActivityTypeModel>>(e));
         }
 
         [HttpDelete]
