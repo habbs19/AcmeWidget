@@ -10,7 +10,7 @@ namespace AcmeWidget.TestSuite
 {
     public static class Extension
     {
-        public static void BindViewModel<T>(this ControllerBase controller, T model)
+        public static void BindModel<T>(this ControllerBase controller, T model)
         {
             if (model == null) return;
 

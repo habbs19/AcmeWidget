@@ -42,7 +42,7 @@ namespace AcmeWidget.TestSuite
             repo.Setup(s => s.CreateAsync(form)).ReturnsAsync(either);
 
             var controller = new ActivityController(repo.Object,logger.Object,mapper.Object);
-            controller.BindViewModel(dto);
+            controller.BindModel(dto);
             var result = await controller.Activity(dto);
             Assert.AreEqual(typeof(OkObjectResult),result.GetType());
         }
@@ -55,7 +55,7 @@ namespace AcmeWidget.TestSuite
 
             var controller = new ActivityController(repo.Object, logger.Object, mapper.Object);
 
-            controller.BindViewModel(dto);
+            controller.BindModel(dto);
             var result = await controller.Activity(dto);
             Assert.AreEqual(typeof(BadRequestObjectResult), result.GetType());
         }
