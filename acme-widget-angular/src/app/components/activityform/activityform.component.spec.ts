@@ -65,20 +65,14 @@ describe('ActivityformComponent', () => {
   });
 
   it('get activities', () => {
-
     let activityList: Activity[] = [
       { name: 'Activity1', type: 1 },
       { name: 'Activity2', type: 2 },
       { name: 'Activity3', type: 3 },
     ]
-
     actServiceSpy.getActivities.and.returnValue(of(activityList))   
-    component.ngOnInit
-    let count : number = 0
-    component.getActivities().subscribe(res => {  
-      count=  res.length
-    })
-    expect(count).toBe(3);
+    component.ngOnInit()
+    expect(component.activities.length).toBe(3);
   });
 
 });
